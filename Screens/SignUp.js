@@ -30,15 +30,18 @@ const SignUp = () => {
           setLoading(true);
          await createUserWithEmailAndPassword(auth,email,password)
          const user = auth.currentUser;
-         console.log(user);
          if(user){
-            setDoc(doc(db,'users',user.uid),{
+            await setDoc(doc(db,'users',user.uid),{
                 email:email,
                 name:name,
                 uid:user.uid,
+                
             })
          }
-         setLoading(false);
+         setTimeout(()=>{
+           setLoading(false);
+          },3000)
+
         } catch (error) {
           setLoading(false);
           Alert.alert('Error', error.message);
